@@ -1,35 +1,35 @@
 %%
-% Copyright (c) 2018, Pascal Wagler;  
+% Copyright (c) 2018, Pascal Wagler;
 % Copyright (c) 2014--2018, John MacFarlane
-% 
+%
 % All rights reserved.
-% 
-% Redistribution and use in source and binary forms, with or without 
-% modification, are permitted provided that the following conditions 
+%
+% Redistribution and use in source and binary forms, with or without
+% modification, are permitted provided that the following conditions
 % are met:
-% 
-% - Redistributions of source code must retain the above copyright 
+%
+% - Redistributions of source code must retain the above copyright
 % notice, this list of conditions and the following disclaimer.
-% 
-% - Redistributions in binary form must reproduce the above copyright 
-% notice, this list of conditions and the following disclaimer in the 
+%
+% - Redistributions in binary form must reproduce the above copyright
+% notice, this list of conditions and the following disclaimer in the
 % documentation and/or other materials provided with the distribution.
-% 
-% - Neither the name of John MacFarlane nor the names of other 
-% contributors may be used to endorse or promote products derived 
+%
+% - Neither the name of John MacFarlane nor the names of other
+% contributors may be used to endorse or promote products derived
 % from this software without specific prior written permission.
-% 
-% THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS 
-% "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT 
-% LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS 
-% FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE 
-% COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, 
+%
+% THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+% "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+% LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS
+% FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE
+% COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,
 % INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING,
-% BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; 
-% LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER 
-% CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT 
-% LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN 
-% ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
+% BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+% LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+% CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+% LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN
+% ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 % POSSIBILITY OF SUCH DAMAGE.
 %%
 
@@ -469,7 +469,7 @@ $if(titlepage)$
 $endif$
 
 %
-% TOC depth and 
+% TOC depth and
 % section numbering depth
 %
 \setcounter{tocdepth}{3}
@@ -483,7 +483,7 @@ $endif$
 \PassOptionsToPackage{hyphens}{url}
 
 %
-% When using babel or polyglossia with biblatex, loading csquotes is recommended 
+% When using babel or polyglossia with biblatex, loading csquotes is recommended
 % to ensure that quoted texts are typeset according to the rules of your main language.
 %
 \usepackage{csquotes}
@@ -510,7 +510,7 @@ $endif$
 % Source Sans Pro as the de­fault font fam­ily
 % Source Code Pro for monospace text
 %
-% 'default' option sets the default 
+% 'default' option sets the default
 % font family to Source Sans Pro, not \sfdefault.
 %
 $if(mainfont)$
@@ -524,7 +524,7 @@ $endif$
 %
 \definecolor{heading-color}{RGB}{40,40,40}
 \addtokomafont{section}{\color{heading-color}}
-% When using the classes report, scrreprt, book, 
+% When using the classes report, scrreprt, book,
 % scrbook or memoir, uncomment the following line.
 %\addtokomafont{chapter}{\color{heading-color}}
 
@@ -559,8 +559,8 @@ $if(tables)$
 \endoldlongtable
 \global\rownum=0\relax}
 
-% Unfortunately the colored cells extend beyond the edge of the 
-% table because pandoc uses @-expressions (@{}) like so: 
+% Unfortunately the colored cells extend beyond the edge of the
+% table because pandoc uses @-expressions (@{}) like so:
 %
 % \begin{longtable}[]{@{}ll@{}}
 % \end{longtable}
@@ -674,40 +674,52 @@ $endif$
 %%
 
 $if(titlepage)$
+
 \begin{titlepage}
+
 \newgeometry{left=6cm}
+
+
+$if(logo)$
+\noindent
+\includegraphics[width=$if(logo-width)$$logo-width$$else$100$endif$pt, right]{$logo$}
+$endif$
+
 $if(titlepage-color)$
 \definecolor{titlepage-color}{HTML}{$titlepage-color$}
 \newpagecolor{titlepage-color}\afterpage{\restorepagecolor}
 $endif$
+\vskip 5em
+
 \newcommand{\colorRule}[3][black]{\textcolor[HTML]{#1}{\rule{#2}{#3}}}
 \begin{flushleft}
 \noindent
 \\[-1em]
 \color[HTML]{$if(titlepage-text-color)$$titlepage-text-color$$else$5F5F5F$endif$}
-\makebox[0pt][l]{\colorRule[$if(titlepage-rule-color)$$titlepage-rule-color$$else$435488$endif$]{1.3\textwidth}{$if(titlepage-rule-height)$$titlepage-rule-height$$else$4$endif$pt}}
+\makebox[0pt][l]{\colorRule[$if(titlepage-rule-color)$$titlepage-rule-color$$else$5F5F5F$endif$]{1.3\textwidth}{$if(titlepage-rule-height)$$titlepage-rule-height$$else$4$endif$pt}}
 \par
 \noindent
 
-{ \setstretch{1.4}
-\vfill
+{
+\setstretch{1.4}
+\vskip 5em
 \noindent {\huge \textbf{\textsf{$title$}}}
+
 $if(subtitle)$
 \vskip 1em
 {\Large \textsf{$subtitle$}}
 $endif$
+
 \vskip 2em
 \noindent
 {\Large \textsf{$for(author)$$author$$sep$, $endfor$}
 \vfill
 }
 
-$if(logo)$
-\noindent
-\includegraphics[width=$if(logo-width)$$logo-width$$else$100$endif$pt, left]{$logo$}
-$endif$
+\hfill \textsf{$date$}
 
-\textsf{$date$}}
+}
+
 \end{flushleft}
 \end{titlepage}
 \restoregeometry
